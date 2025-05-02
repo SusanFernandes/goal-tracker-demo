@@ -692,10 +692,11 @@ export default function GoalTracker() {
               {showMobileMenu ? (
                 <X className="h-5 w-5" />
               ) : (
+                /*This is mobile view menu lines */
                 <div className="space-y-1">
-                  <div className="w-5 h-0.5 bg-white-600 dark:bg-white-300"></div>
-                  <div className="w-5 h-0.5 bg-white-600 dark:bg-white-300"></div>
-                  <div className="w-5 h-0.5 bg-white-600 dark:bg-white-300"></div>
+                  <div className="w-5 h-0.5 bg-gray-600 dark:bg-white-300"></div>
+                  <div className="w-5 h-0.5 bg-gray-600 dark:bg-white-300"></div>
+                  <div className="w-5 h-0.5 bg-gray-600 dark:bg-white-300"></div>
                 </div>
               )}
             </button>
@@ -713,7 +714,7 @@ export default function GoalTracker() {
                 placeholder="Search goals..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 rounded-full bg-white-900 dark:bg-white-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
+                className="pl-10 pr-4 py-2 rounded-full outline-1 bg-white-900 dark:bg-white-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
               />
             </div>
           </div>
