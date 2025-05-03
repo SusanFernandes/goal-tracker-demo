@@ -1,0 +1,896 @@
+"use client"
+
+import type React from "react"
+
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts"
+import {
+  Search,
+  Settings,
+  Bell,
+  Calendar,
+  CheckCircle,
+  MessageSquare,
+  Plus,
+  X,
+  Sun,
+  Moon,
+  MoreHorizontal,
+  Clock,
+  ArrowUp,
+} from "lucide-react"
+
+// Types
+interface Goal {
+  id: number
+  title: string
+  description: string
+  deadline: string
+  progress: number
+  avatar: string
+  completed: boolean
+  category: string
+  comments: Comment[]
+}
+
+interface Comment {
+  id: number
+  user: string
+  text: string
+  date: string
+}
+
+// Mock data
+const mockGoals: Goal[] = [
+  {
+    id: 1,
+    title: "Complete Website Redesign",
+    description: "Finish the new company website with updated branding",
+    deadline: "2025-06-15",
+    progress: 75,
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    completed: false,
+    category: "Work",
+    comments: [
+      { id: 1, user: "Alex Kim", text: "Looking great so far!", date: "2025-05-10" },
+      { id: 2, user: "Jamie Smith", text: "Don't forget to update the contact form", date: "2025-05-12" },
+    ],
+  },
+  {
+    id: 2,
+    title: "Learn TypeScript",
+    description: "Complete advanced TypeScript course and build a project",
+    deadline: "2025-07-20",
+    progress: 45,
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    completed: false,
+    category: "Education",
+    comments: [{ id: 1, user: "Taylor Reed", text: "Have you checked out the official docs?", date: "2025-05-05" }],
+  },
+  {
+    id: 3,
+    title: "Fitness Goal: 10K Run",
+    description: "Train for and complete a 10K run",
+    deadline: "2025-08-30",
+    progress: 60,
+    avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+    completed: false,
+    category: "Health",
+    comments: [],
+  },
+  {
+    id: 4,
+    title: "Read 12 Books",
+    description: "Read one book per month for personal development",
+    deadline: "2025-12-31",
+    progress: 25,
+    avatar: "https://randomuser.me/api/portraits/women/22.jpg",
+    completed: false,
+    category: "Personal",
+    comments: [{ id: 1, user: "Jordan Lee", text: "I recommend 'Atomic Habits'!", date: "2025-04-15" }],
+  },
+]
+
+// Chart data
+const monthlyProgressData = [
+  { name: "Jan", completed: 3, target: 4 },
+  { name: "Feb", completed: 4, target: 4 },
+  { name: "Mar", completed: 2, target: 5 },
+  { name: "Apr", completed: 5, target: 5 },
+  { name: "May", completed: 3, target: 6 },
+  { name: "Jun", completed: 0, target: 4 },
+]
+
+const categoryData = [
+  { name: "Work", value: 42 },
+  { name: "Personal", value: 28 },
+  { name: "Health", value: 18 },
+  { name: "Education", value: 12 },
+]
+
+// Confetti animation component
+const Confetti = ({ active }: { active: boolean }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const confettiRef = useRef<any[]>([])
+  const animationFrameRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    if (!active || !canvasRef.current) return
+
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const width = (canvas.width = window.innerWidth)
+    const height = (canvas.height = window.innerHeight)
+
+    const colors = ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4"]
+
+    // Create confetti particles
+    const createConfetti = () => {
+      for (let i = 0; i < 150; i++) {
+        confettiRef.current.push({
+          x: Math.random() * width,
+          y: Math.random() * height - height,
+          size: Math.random() * 10 + 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 3 + 2,
+          angle: Math.random() * 6.28,
+          spin: Math.random() * 0.2 - 0.1,
+        })
+      }
+    }
+
+    // Animate confetti
+    const animateConfetti = () => {
+      ctx.clearRect(0, 0, width, height)
+
+      if (confettiRef.current.length === 0) {
+        createConfetti()
+      }
+
+      confettiRef.current.forEach((confetti, index) => {
+        ctx.fillStyle = confetti.color
+        ctx.beginPath()
+        ctx.arc(confetti.x, confetti.y, confetti.size, 0, Math.PI * 2)
+        ctx.fill()
+
+        confetti.y += confetti.speed
+        confetti.x += Math.sin(confetti.angle) * 2
+        confetti.angle += confetti.spin
+
+        // Remove confetti when it goes off screen
+        if (confetti.y > height) {
+          confettiRef.current.splice(index, 1)
+        }
+      })
+
+      animationFrameRef.current = requestAnimationFrame(animateConfetti)
+    }
+
+    createConfetti()
+    animateConfetti()
+
+    // Cleanup
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+      confettiRef.current = []
+    }
+  }, [active])
+
+  if (!active) return null
+
+  return <canvas ref={canvasRef} className="fixed inset-0 z-50 pointer-events-none" />
+}
+
+// Circular progress component
+const CircularProgress = ({
+  percentage,
+  size = 120,
+  strokeWidth = 8,
+  color = "#3b82f6",
+}: {
+  percentage: number
+  size?: number
+  strokeWidth?: number
+  color?: string
+}) => {
+  const radius = (size - strokeWidth) / 2
+  const circumference = radius * 2 * Math.PI
+  const dash = (percentage * circumference) / 100
+
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="rotate-[-90deg]">
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="transparent" stroke="#e5e7eb" strokeWidth={strokeWidth} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="transparent"
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - dash}
+          strokeLinecap="round"
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center text-xl font-semibold">{percentage}%</div>
+    </div>
+  )
+}
+
+// Main component
+const GoalTrackPro = () => {
+  const [darkMode, setDarkMode] = useState(false)
+  const [goals, setGoals] = useState<Goal[]>(mockGoals)
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
+  const [showCommentModal, setShowCommentModal] = useState(false)
+  const [activeGoal, setActiveGoal] = useState<number | null>(null)
+  const [newComment, setNewComment] = useState("")
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [userName, setUserName] = useState("Alex Johnson")
+  const [userEmail, setUserEmail] = useState("alex.johnson@example.com")
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
+  const [activeView, setActiveView] = useState("dashboard")
+  const [filterCategory, setFilterCategory] = useState("All")
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+  }
+
+  // Handle goal completion
+  const handleCompleteGoal = (id: number) => {
+    const goalIndex = goals.findIndex((goal) => goal.id === id)
+    if (goalIndex === -1) return
+
+    const goal = goals[goalIndex]
+    const deadline = new Date(goal.deadline)
+    const today = new Date()
+
+    const updatedGoals = [...goals]
+    updatedGoals[goalIndex] = {
+      ...goal,
+      completed: true,
+      progress: 100,
+    }
+
+    setGoals(updatedGoals)
+
+    // Show confetti if completed before deadline
+    if (today < deadline) {
+      setShowConfetti(true)
+      setTimeout(() => setShowConfetti(false), 5000)
+    }
+  }
+
+  // Handle comment submission
+  const handleCommentSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!activeGoal || !newComment.trim()) return
+
+    const goalIndex = goals.findIndex((goal) => goal.id === activeGoal)
+    if (goalIndex === -1) return
+
+    const updatedGoals = [...goals]
+    updatedGoals[goalIndex].comments.push({
+      id: Date.now(),
+      user: userName,
+      text: newComment,
+      date: new Date().toISOString().split("T")[0],
+    })
+
+    setGoals(updatedGoals)
+    setNewComment("")
+    setShowCommentModal(false)
+  }
+
+  // Open comment modal
+  const openCommentModal = (id: number) => {
+    setActiveGoal(id)
+    setShowCommentModal(true)
+  }
+
+  // Calculate days remaining
+  const getDaysRemaining = (deadline: string) => {
+    const deadlineDate = new Date(deadline)
+    const today = new Date()
+    const diffTime = deadlineDate.getTime() - today.getTime()
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    return diffDays
+  }
+
+  // Filter goals by category
+  const filteredGoals = filterCategory === "All" ? goals : goals.filter((goal) => goal.category === filterCategory)
+
+  // Calculate stats
+  const completedGoals = goals.filter((goal) => goal.completed).length
+  const totalGoals = goals.length
+  const completionRate = totalGoals > 0 ? Math.round((completedGoals / totalGoals) * 100) : 0
+  const upcomingDeadlines = goals.filter((goal) => !goal.completed && getDaysRemaining(goal.deadline) <= 7).length
+
+  return (
+    <div className={`min-h-screen ${darkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+      {/* Confetti animation */}
+      <Confetti active={showConfetti} />
+
+      {/* Navbar */}
+      <header
+        className={`sticky top-0 z-40 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"} border-b`}
+      >
+        <div className="container mx-auto px-4 flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <div className="flex items-center mr-8">
+              <div
+                className={`w-9 h-9 rounded-full flex items-center justify-center ${darkMode ? "bg-blue-600" : "bg-blue-500"} text-white font-bold mr-2`}
+              >
+                GT
+              </div>
+              <span className="font-semibold text-lg">GoalTrack Pro</span>
+            </div>
+            <nav className="hidden md:flex space-x-1">
+              <button
+                onClick={() => setActiveView("dashboard")}
+                className={`px-3 py-2 rounded-md text-sm font-medium ${
+                  activeView === "dashboard"
+                    ? darkMode
+                      ? "bg-gray-700 text-white"
+                      : "bg-gray-100 text-gray-900"
+                    : darkMode
+                      ? "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={() => setActiveView("goals")}
+                className={`px-3 py-2 rounded-md text-sm font-medium ${
+                  activeView === "goals"
+                    ? darkMode
+                      ? "bg-gray-700 text-white"
+                      : "bg-gray-100 text-gray-900"
+                    : darkMode
+                      ? "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                Goals
+              </button>
+            </nav>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <Search className="w-4 h-4 text-gray-500" />
+              </div>
+              <input
+                type="search"
+                className={`block w-full p-2 pl-10 text-sm rounded-lg ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                    : "bg-gray-100 border-gray-300 placeholder-gray-500 text-gray-900"
+                }`}
+                placeholder="Search..."
+              />
+            </div>
+
+            <button className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <Bell className="w-5 h-5" />
+            </button>
+
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+
+            <button
+              onClick={() => setShowSettingsModal(true)}
+              className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="User avatar"
+                className="w-8 h-8 rounded-full"
+                crossOrigin="anonymous"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-6">
+        {/* Hero Section */}
+        <section className="mb-8">
+          <div className={`rounded-xl overflow-hidden ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+            <div className="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
+              <div className="absolute inset-0 bg-black/20"></div>
+              <div className="absolute inset-0 flex items-center px-8">
+                <div className="max-w-2xl">
+                  <h1 className="text-3xl font-bold text-white mb-2">Welcome back, {userName.split(" ")[0]}</h1>
+                  <p className="text-white/90 mb-4">Track your goals, celebrate progress, and achieve more.</p>
+                  <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                    Start Tracking
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Overview */}
+        <section className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Total Goals</h3>
+            <div className="flex items-end justify-between">
+              <p className="text-3xl font-bold">{totalGoals}</p>
+              <div className="flex items-center text-green-500">
+                <ArrowUp className="w-4 h-4 mr-1" />
+                <span className="text-sm">12%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Completed</h3>
+            <div className="flex items-end justify-between">
+              <p className="text-3xl font-bold">{completedGoals}</p>
+              <div className="flex items-center text-green-500">
+                <ArrowUp className="w-4 h-4 mr-1" />
+                <span className="text-sm">8%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Completion Rate</h3>
+            <div className="flex items-end justify-between">
+              <p className="text-3xl font-bold">{completionRate}%</p>
+              <div className="flex items-center text-green-500">
+                <ArrowUp className="w-4 h-4 mr-1" />
+                <span className="text-sm">5%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Upcoming Deadlines</h3>
+            <div className="flex items-end justify-between">
+              <p className="text-3xl font-bold">{upcomingDeadlines}</p>
+              <div className="flex items-center text-red-500">
+                <ArrowUp className="w-4 h-4 mr-1" />
+                <span className="text-sm">2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Goals */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Goals Header */}
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold">Your Goals</h2>
+              <div className="flex items-center space-x-2">
+                <select
+                  value={filterCategory}
+                  onChange={(e) => setFilterCategory(e.target.value)}
+                  className={`text-sm rounded-lg p-2 ${
+                    darkMode ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
+                  } border`}
+                >
+                  <option value="All">All Categories</option>
+                  <option value="Work">Work</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Health">Health</option>
+                  <option value="Education">Education</option>
+                </select>
+
+                <button className="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm">
+                  <Plus className="w-4 h-4" />
+                  <span>New Goal</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Goals List */}
+            <div className="space-y-4">
+              {filteredGoals.map((goal) => (
+                <motion.div
+                  key={goal.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className={`rounded-xl overflow-hidden shadow-sm ${darkMode ? "bg-gray-800" : "bg-white"}`}
+                >
+                  <div className="p-5">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center">
+                        <img
+                          src={goal.avatar || "/placeholder.svg"}
+                          alt="User avatar"
+                          className="w-10 h-10 rounded-full mr-3"
+                          crossOrigin="anonymous"
+                        />
+                        <div>
+                          <h3 className="font-medium">{goal.title}</h3>
+                          <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                            {goal.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <span
+                          className={`text-xs font-medium px-2 py-1 rounded-full ${
+                            goal.completed
+                              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                              : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+                          }`}
+                        >
+                          {goal.category}
+                        </span>
+                        <button className="ml-2 text-gray-400 hover:text-gray-500">
+                          <MoreHorizontal className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center text-sm">
+                        <Calendar className={`w-4 h-4 mr-1 ${darkMode ? "text-gray-400" : "text-gray-500"}`} />
+                        <span className={darkMode ? "text-gray-400" : "text-gray-500"}>
+                          {new Date(goal.deadline).toLocaleDateString()}
+                          {goal.completed ? " (Completed)" : ` (${getDaysRemaining(goal.deadline)} days left)`}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Clock className={`w-4 h-4 mr-1 ${darkMode ? "text-gray-400" : "text-gray-500"}`} />
+                        <span className={darkMode ? "text-gray-400" : "text-gray-500"}>Updated 2 days ago</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="w-full max-w-xs">
+                        <div className="flex justify-between mb-1 text-sm">
+                          <span>Progress</span>
+                          <span>{goal.progress}%</span>
+                        </div>
+                        <div className={`w-full h-2 rounded-full ${darkMode ? "bg-gray-700" : "bg-gray-200"}`}>
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${goal.progress}%` }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            className={`h-2 rounded-full ${
+                              goal.completed
+                                ? "bg-green-500"
+                                : goal.progress > 75
+                                  ? "bg-emerald-500"
+                                  : goal.progress > 50
+                                    ? "bg-yellow-500"
+                                    : goal.progress > 25
+                                      ? "bg-orange-500"
+                                      : "bg-red-500"
+                            }`}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => openCommentModal(goal.id)}
+                          className={`flex items-center px-3 py-1.5 rounded-lg text-sm ${
+                            darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-100 hover:bg-gray-200"
+                          }`}
+                        >
+                          <MessageSquare className="w-4 h-4 mr-1" />
+                          <span>{goal.comments.length}</span>
+                        </button>
+
+                        {!goal.completed && (
+                          <button
+                            onClick={() => handleCompleteGoal(goal.id)}
+                            className="flex items-center px-3 py-1.5 rounded-lg text-sm bg-green-600 hover:bg-green-700 text-white"
+                          >
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            <span>Complete</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Stats and Charts */}
+          <div className="space-y-6">
+            {/* Overall Progress */}
+            <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+              <h3 className="text-lg font-medium mb-4">Overall Progress</h3>
+              <div className="flex justify-center mb-4">
+                <CircularProgress
+                  percentage={completionRate}
+                  color={
+                    completionRate > 75
+                      ? "#10b981"
+                      : completionRate > 50
+                        ? "#f59e0b"
+                        : completionRate > 25
+                          ? "#f97316"
+                          : "#ef4444"
+                  }
+                />
+              </div>
+              <div className="text-center">
+                <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                  {completedGoals} of {totalGoals} goals completed
+                </p>
+              </div>
+            </div>
+
+            {/* Monthly Progress Chart */}
+            <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-medium">Monthly Progress</h3>
+                <select
+                  className={`text-xs rounded-lg p-1 ${
+                    darkMode ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
+                  } border`}
+                >
+                  <option>Last 6 months</option>
+                  <option>This year</option>
+                </select>
+              </div>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={monthlyProgressData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#374151" : "#e5e7eb"} />
+                    <XAxis
+                      dataKey="name"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: darkMode ? "#9ca3af" : "#6b7280" }}
+                    />
+                    <YAxis
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: darkMode ? "#9ca3af" : "#6b7280" }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: darkMode ? "#1f2937" : "#ffffff",
+                        borderColor: darkMode ? "#374151" : "#e5e7eb",
+                        borderRadius: "0.5rem",
+                      }}
+                    />
+                    <Bar dataKey="completed" fill="#3b82f6" radius={[4, 4, 0, 0]} name="Completed" />
+                    <Bar dataKey="target" fill={darkMode ? "#4b5563" : "#e5e7eb"} radius={[4, 4, 0, 0]} name="Target" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Category Distribution */}
+            <div className={`rounded-xl p-6 ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+              <h3 className="text-lg font-medium mb-4">Goals by Category</h3>
+              <div className="space-y-4">
+                {categoryData.map((category) => (
+                  <div key={category.name}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>{category.name}</span>
+                      <span>{category.value}%</span>
+                    </div>
+                    <div className={`w-full h-2 rounded-full ${darkMode ? "bg-gray-700" : "bg-gray-200"}`}>
+                      <div className="h-2 rounded-full bg-blue-600" style={{ width: `${category.value}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer
+        className={`py-6 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"} border-t mt-12`}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
+            &copy; {new Date().getFullYear()} GoalTrack Pro. All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+      {/* Settings Modal */}
+      <AnimatePresence>
+        {showSettingsModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className={`w-full max-w-md rounded-xl shadow-2xl overflow-hidden ${darkMode ? "bg-gray-800" : "bg-white"} p-6`}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-bold">Settings</h3>
+                <button
+                  onClick={() => setShowSettingsModal(false)}
+                  className={`p-2 rounded-full ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Your Name</label>
+                  <input
+                    type="text"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className={`w-full px-4 py-2 rounded-lg border ${
+                      darkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
+                    }`}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Email</label>
+                  <input
+                    type="email"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    className={`w-full px-4 py-2 rounded-lg border ${
+                      darkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
+                    }`}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Dark Mode</span>
+                  <button
+                    onClick={toggleDarkMode}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full ${
+                      darkMode ? "bg-blue-600" : "bg-gray-300"
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
+                        darkMode ? "translate-x-6" : "translate-x-1"
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Notifications</span>
+                  <button
+                    onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full ${
+                      notificationsEnabled ? "bg-blue-600" : "bg-gray-300"
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
+                        notificationsEnabled ? "translate-x-6" : "translate-x-1"
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="pt-4 flex justify-end">
+                  <button
+                    onClick={() => setShowSettingsModal(false)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Comment Modal */}
+      <AnimatePresence>
+        {showCommentModal && activeGoal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className={`w-full max-w-md rounded-xl shadow-2xl overflow-hidden ${darkMode ? "bg-gray-800" : "bg-white"} p-6`}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-bold">Comments</h3>
+                <button
+                  onClick={() => setShowCommentModal(false)}
+                  className={`p-2 rounded-full ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="mb-6 max-h-60 overflow-y-auto">
+                {goals.find((g) => g.id === activeGoal)?.comments.length === 0 ? (
+                  <p className={`text-center py-4 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                    No comments yet. Be the first to comment!
+                  </p>
+                ) : (
+                  <div className="space-y-4">
+                    {goals
+                      .find((g) => g.id === activeGoal)
+                      ?.comments.map((comment) => (
+                        <div key={comment.id} className={`p-3 rounded-lg ${darkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                          <div className="flex justify-between mb-1">
+                            <span className="font-medium">{comment.user}</span>
+                            <span className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                              {comment.date}
+                            </span>
+                          </div>
+                          <p>{comment.text}</p>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
+
+              <form onSubmit={handleCommentSubmit}>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2">Add a comment</label>
+                  <textarea
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className={`w-full px-4 py-2 rounded-lg border ${
+                      darkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
+                    }`}
+                    rows={3}
+                    placeholder="Type your comment here..."
+                  ></textarea>
+                </div>
+
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    disabled={!newComment.trim()}
+                  >
+                    Submit Comment
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+export default GoalTrackPro

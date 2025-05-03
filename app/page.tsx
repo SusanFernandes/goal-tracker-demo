@@ -18,6 +18,20 @@ import {
   LogOut,
   Search,
   MoreHorizontal,
+  ChevronDown,
+  Menu,
+  Target,
+  Heart,
+  Briefcase,
+  BookOpen,
+  User,
+  BarChart2,
+  ChevronRight,
+  Filter,
+  ArrowRight,
+  Clock,
+  CheckSquare,
+  PanelLeft,
 } from "lucide-react"
 import confetti from "canvas-confetti"
 import { usePathname, useRouter } from "next/navigation"
@@ -110,10 +124,10 @@ const generateMockGoals = (): Goal[] => {
       progress: 65,
       target: 100,
       milestones: [
-        { percent: 25, badge: "🏁", achieved: true, description: "Started the journey" },
-        { percent: 50, badge: "🔥", achieved: true, description: "Halfway there" },
-        { percent: 75, badge: "🚀", achieved: false, description: "Almost done" },
-        { percent: 100, badge: "🏆", achieved: false, description: "Completed" },
+        { percent: 25, badge: "1", achieved: true, description: "Initial progress" },
+        { percent: 50, badge: "2", achieved: true, description: "Midpoint checkpoint" },
+        { percent: 75, badge: "3", achieved: false, description: "Advanced progress" },
+        { percent: 100, badge: "4", achieved: false, description: "Completion" },
       ],
       comments: [
         {
@@ -134,7 +148,7 @@ const generateMockGoals = (): Goal[] => {
       category: "learning",
       createdAt: "2023-10-01T09:00:00",
       dueDate: "2023-12-31T23:59:59",
-      color: "#4f46e5", // indigo-600
+      color: "#1e3a8a", // blue-900
     },
     {
       id: "goal2",
@@ -143,10 +157,10 @@ const generateMockGoals = (): Goal[] => {
       progress: 42,
       target: 100,
       milestones: [
-        { percent: 25, badge: "👟", achieved: true, description: "First steps" },
-        { percent: 50, badge: "🏃", achieved: false, description: "Halfway mark" },
-        { percent: 75, badge: "⚡", achieved: false, description: "Sprint finish" },
-        { percent: 100, badge: "🥇", achieved: false, description: "Marathon complete" },
+        { percent: 25, badge: "1", achieved: true, description: "Initial progress" },
+        { percent: 50, badge: "2", achieved: false, description: "Halfway mark" },
+        { percent: 75, badge: "3", achieved: false, description: "Advanced progress" },
+        { percent: 100, badge: "4", achieved: false, description: "Completion" },
       ],
       comments: [
         {
@@ -160,7 +174,7 @@ const generateMockGoals = (): Goal[] => {
       category: "health",
       createdAt: "2023-11-01T06:00:00",
       dueDate: "2023-11-30T23:59:59",
-      color: "#10b981", // emerald-500
+      color: "#0f766e", // teal-700
     },
     {
       id: "goal3",
@@ -169,10 +183,10 @@ const generateMockGoals = (): Goal[] => {
       progress: 80,
       target: 100,
       milestones: [
-        { percent: 25, badge: "📝", achieved: true, description: "Requirements defined" },
-        { percent: 50, badge: "💻", achieved: true, description: "Development started" },
-        { percent: 75, badge: "🧪", achieved: true, description: "Testing phase" },
-        { percent: 100, badge: "🚀", achieved: false, description: "Product launched" },
+        { percent: 25, badge: "1", achieved: true, description: "Requirements defined" },
+        { percent: 50, badge: "2", achieved: true, description: "Development initiated" },
+        { percent: 75, badge: "3", achieved: true, description: "Testing phase" },
+        { percent: 100, badge: "4", achieved: false, description: "Product launched" },
       ],
       comments: [
         {
@@ -193,7 +207,7 @@ const generateMockGoals = (): Goal[] => {
       category: "work",
       createdAt: "2023-09-15T10:00:00",
       dueDate: "2023-12-15T17:00:00",
-      color: "#f59e0b", // amber-500
+      color: "#334155", // slate-700
     },
     {
       id: "goal4",
@@ -202,10 +216,10 @@ const generateMockGoals = (): Goal[] => {
       progress: 9,
       target: 12,
       milestones: [
-        { percent: 25, badge: "📚", achieved: true, description: "3 books read" },
-        { percent: 50, badge: "📖", achieved: true, description: "6 books read" },
-        { percent: 75, badge: "🧠", achieved: true, description: "9 books read" },
-        { percent: 100, badge: "🎓", achieved: false, description: "All books read" },
+        { percent: 25, badge: "1", achieved: true, description: "3 books read" },
+        { percent: 50, badge: "2", achieved: true, description: "6 books read" },
+        { percent: 75, badge: "3", achieved: true, description: "9 books read" },
+        { percent: 100, badge: "4", achieved: false, description: "All books read" },
       ],
       comments: [
         {
@@ -219,7 +233,7 @@ const generateMockGoals = (): Goal[] => {
       category: "personal",
       createdAt: "2023-01-01T00:00:00",
       dueDate: "2023-12-31T23:59:59",
-      color: "#8b5cf6", // violet-500
+      color: "#1e40af", // blue-800
     },
     {
       id: "goal5",
@@ -228,16 +242,16 @@ const generateMockGoals = (): Goal[] => {
       progress: 30,
       target: 100,
       milestones: [
-        { percent: 25, badge: "🤝", achieved: true, description: "Needs assessment" },
-        { percent: 50, badge: "📊", achieved: false, description: "Process implementation" },
-        { percent: 75, badge: "📈", achieved: false, description: "Adoption metrics" },
-        { percent: 100, badge: "🌟", achieved: false, description: "Full implementation" },
+        { percent: 25, badge: "1", achieved: true, description: "Needs assessment" },
+        { percent: 50, badge: "2", achieved: false, description: "Process implementation" },
+        { percent: 75, badge: "3", achieved: false, description: "Adoption metrics" },
+        { percent: 100, badge: "4", achieved: false, description: "Full implementation" },
       ],
       comments: [
         {
           id: "c7",
           userId: "user2",
-          text: "The new Slack channels are working great!",
+          text: "The new Slack channels are working well for cross-team communication",
           date: "2023-11-13T13:40:00",
           read: false,
         },
@@ -245,7 +259,7 @@ const generateMockGoals = (): Goal[] => {
       category: "work",
       createdAt: "2023-10-15T14:00:00",
       dueDate: "2024-01-15T17:00:00",
-      color: "#ec4899", // pink-500
+      color: "#334155", // slate-700
     },
     {
       id: "goal6",
@@ -254,16 +268,16 @@ const generateMockGoals = (): Goal[] => {
       progress: 15,
       target: 100,
       milestones: [
-        { percent: 25, badge: "🗣️", achieved: false, description: "Basic phrases" },
-        { percent: 50, badge: "💬", achieved: false, description: "Simple conversations" },
-        { percent: 75, badge: "📱", achieved: false, description: "Watch shows without subtitles" },
-        { percent: 100, badge: "🌍", achieved: false, description: "Fluent conversations" },
+        { percent: 25, badge: "1", achieved: false, description: "Basic vocabulary" },
+        { percent: 50, badge: "2", achieved: false, description: "Simple conversations" },
+        { percent: 75, badge: "3", achieved: false, description: "Advanced comprehension" },
+        { percent: 100, badge: "4", achieved: false, description: "Fluent conversations" },
       ],
       comments: [
         {
           id: "c8",
           userId: "user3",
-          text: "Duolingo has a great Spanish course!",
+          text: "Duolingo has a great Spanish course for beginners!",
           date: "2023-11-08T20:10:00",
           read: true,
         },
@@ -271,7 +285,7 @@ const generateMockGoals = (): Goal[] => {
       category: "learning",
       createdAt: "2023-09-01T08:00:00",
       dueDate: "2024-09-01T23:59:59",
-      color: "#0ea5e9", // sky-500
+      color: "#1e3a8a", // blue-900
     },
   ]
 }
@@ -355,6 +369,7 @@ export default function GoalTracker() {
   const [showNotifications, setShowNotifications] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [showShareModal, setShowShareModal] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   const router = useRouter()
   const pathname = usePathname()
@@ -380,6 +395,24 @@ export default function GoalTracker() {
     if (savedDarkMode) {
       setDarkMode(savedDarkMode === "true")
     }
+
+    // Set sidebar closed by default on mobile
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setSidebarOpen(false)
+      } else {
+        setSidebarOpen(true)
+      }
+    }
+
+    // Initial check
+    handleResize()
+
+    // Add event listener
+    window.addEventListener("resize", handleResize)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   // Save to localStorage when data changes
@@ -436,43 +469,46 @@ export default function GoalTracker() {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case "health":
-        return "bg-emerald-500"
+        return "bg-teal-700 text-teal-50"
       case "work":
-        return "bg-amber-500"
+        return "bg-slate-700 text-slate-50"
       case "learning":
-        return "bg-indigo-600"
+        return "bg-blue-900 text-blue-50"
       case "personal":
-        return "bg-violet-500"
+        return "bg-blue-800 text-blue-50"
       default:
-        return "bg-white-900"
+        return "bg-slate-600 text-slate-50"
     }
   }
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "health":
-        return "💪"
+        return <Heart className="h-4 w-4" />
       case "work":
-        return "💼"
+        return <Briefcase className="h-4 w-4" />
       case "learning":
-        return "🎓"
+        return <BookOpen className="h-4 w-4" />
       case "personal":
-        return "🌱"
+        return <User className="h-4 w-4" />
       default:
-        return "🎯"
+        return <Target className="h-4 w-4" />
     }
   }
 
   const getProgressColor = (progress: number) => {
-    if (progress < 25) return "bg-rose-500"
-    if (progress < 50) return "bg-amber-500"
-    if (progress < 75) return "bg-sky-500"
-    return "bg-emerald-500"
+    if (progress < 25) return "bg-red-600"
+    if (progress < 50) return "bg-amber-600"
+    if (progress < 75) return "bg-blue-600"
+    return "bg-emerald-600"
   }
 
   // Event handlers
   const handleTabChange = (tab: "all" | "health" | "work" | "learning" | "personal") => {
     setActiveTab(tab)
+    if (window.innerWidth < 1024) {
+      setShowMobileMenu(false)
+    }
   }
 
   const handleProgressUpdate = (goalId: string, increment: number) => {
@@ -597,16 +633,16 @@ export default function GoalTracker() {
       progress: 0,
       target: newGoalForm.target,
       milestones: [
-        { percent: 25, badge: "🏁", achieved: false, description: "Getting started" },
-        { percent: 50, badge: "🔥", achieved: false, description: "Halfway there" },
-        { percent: 75, badge: "🚀", achieved: false, description: "Almost done" },
-        { percent: 100, badge: "🏆", achieved: false, description: "Completed" },
+        { percent: 25, badge: "1", achieved: false, description: "Initial progress" },
+        { percent: 50, badge: "2", achieved: false, description: "Midpoint checkpoint" },
+        { percent: 75, badge: "3", achieved: false, description: "Advanced progress" },
+        { percent: 100, badge: "4", achieved: false, description: "Completion" },
       ],
       comments: [],
       category: newGoalForm.category,
       createdAt: new Date().toISOString(),
       dueDate: new Date(newGoalForm.dueDate).toISOString(),
-      color: getRandomColor(),
+      color: getCategoryDefaultColor(newGoalForm.category),
     }
 
     setGoals((prev) => [...prev, newGoal])
@@ -619,7 +655,7 @@ export default function GoalTracker() {
       type: "progress",
       date: new Date().toISOString(),
       read: false,
-      details: `created a new goal "${newGoal.title}"`,
+      details: `created a new objective "${newGoal.title}"`,
     }
 
     setActivities((prev) => [newActivity, ...prev])
@@ -645,9 +681,19 @@ export default function GoalTracker() {
     setActivities((prev) => prev.map((activity) => ({ ...activity, read: true })))
   }
 
-  const getRandomColor = () => {
-    const colors = ["#4f46e5", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6", "#0ea5e9"]
-    return colors[Math.floor(Math.random() * colors.length)]
+  const getCategoryDefaultColor = (category: string) => {
+    switch (category) {
+      case "health":
+        return "#0f766e" // teal-700
+      case "work":
+        return "#334155" // slate-700
+      case "learning":
+        return "#1e3a8a" // blue-900
+      case "personal":
+        return "#1e40af" // blue-800
+      default:
+        return "#475569" // slate-600
+    }
   }
 
   // Chart data
@@ -672,209 +718,321 @@ export default function GoalTracker() {
     }))
   }
 
-  const COLORS = ["#4f46e5", "#10b981", "#f59e0b", "#ec4899"]
+  const COLORS = ["#1e3a8a", "#334155", "#0f766e", "#1e40af"] // blue-900, slate-700, teal-700, blue-800
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${darkMode ? "dark bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}
+      className={`min-h-screen flex flex-col ${darkMode ? "dark bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-900"}`}
     >
       {/* Confetti container */}
       <div ref={confettiRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-50"></div>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white dark:bg-white-800 shadow-sm">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+      <header className="sticky top-0 z-40 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex h-16 items-center px-4">
+          <div className="flex items-center gap-2 mr-4">
             <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="md:hidden p-2 rounded-full hover:bg-white-900 dark:hover:bg-white-700"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 lg:hidden"
             >
-              {showMobileMenu ? (
-                <X className="h-5 w-5" />
-              ) : (
-                /*This is mobile view menu lines */
-                <div className="space-y-1">
-                  <div className="w-5 h-0.5 bg-gray-600 dark:bg-white-300"></div>
-                  <div className="w-5 h-0.5 bg-gray-600 dark:bg-white-300"></div>
-                  <div className="w-5 h-0.5 bg-gray-600 dark:bg-white-300"></div>
-                </div>
-              )}
+              <Menu className="h-5 w-5" />
             </button>
-            <h1 className="text-xl font-bold flex items-center truncate">
-              <span className="text-indigo-600 dark:text-indigo-400 mr-2">🎯</span>
-              GoalTracker
-            </h1>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="hidden lg:flex p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <PanelLeft className="h-5 w-5" />
+            </button>
+            <h1 className="text-xl font-semibold hidden sm:block">Objective Tracker</h1>
           </div>
 
-          <div className="hidden md:flex items-center space-x-1">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <div className="flex-1 flex items-center justify-between">
+            <div className="relative max-w-md w-full hidden md:block">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
               <input
                 type="text"
-                placeholder="Search goals..."
+                placeholder="Search objectives..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 rounded-full outline-1 bg-white-900 dark:bg-white-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 dark:border-gray-600"
               />
             </div>
-          </div>
 
-          <div className="flex items-center space-x-2">
-            <div className="relative">
-              <button
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 relative"
-              >
-                <Bell className="h-5 w-5" />
-                {unreadNotificationsCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-rose-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {unreadNotificationsCount}
-                  </span>
-                )}
-              </button>
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 relative"
+                >
+                  <Bell className="h-5 w-5" />
+                  {unreadNotificationsCount > 0 && (
+                    <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {unreadNotificationsCount}
+                    </span>
+                  )}
+                </button>
 
-              {/* Notifications dropdown */}
-              <AnimatePresence>
-                {showNotifications && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden z-50"
-                  >
-                    <div className="p-3 border-b dark:border-gray-700 flex justify-between items-center">
-                      <h3 className="font-semibold">Notifications</h3>
-                      <button
-                        onClick={handleMarkAllNotificationsAsRead}
-                        className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
-                      >
-                        Mark all as read
-                      </button>
-                    </div>
-                    <div className="max-h-96 overflow-y-auto">
-                      {activities.slice(0, 5).map((activity) => (
-                        <div
-                          key={activity.id}
-                          className={`p-3 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 ${!activity.read ? "bg-indigo-50 dark:bg-indigo-900/20" : ""}`}
+                {/* Notifications dropdown */}
+                <AnimatePresence>
+                  {showNotifications && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden z-50 border border-gray-200 dark:border-gray-700"
+                    >
+                      <div className="p-3 border-b dark:border-gray-700 flex justify-between items-center">
+                        <h3 className="font-semibold">Notifications</h3>
+                        <button
+                          onClick={handleMarkAllNotificationsAsRead}
+                          className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                         >
-                          <div className="flex items-start">
-                            <div className="flex-shrink-0 mr-3">
-                              <Image
-                                src={getUserById(activity.userId).avatar || "/placeholder.svg"}
-                                alt={getUserById(activity.userId).name}
-                                width={36}
-                                height={36}
-                                className="rounded-full"
-                              />
-                            </div>
-                            <div>
-                              <p className="text-sm">
-                                <span className="font-medium">{getUserById(activity.userId).name}</span>{" "}
-                                {activity.details}
-                              </p>
-                              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                {formatDate(activity.date)}
-                              </p>
+                          Mark all as read
+                        </button>
+                      </div>
+                      <div className="max-h-96 overflow-y-auto">
+                        {activities.slice(0, 5).map((activity) => (
+                          <div
+                            key={activity.id}
+                            className={`p-3 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 ${!activity.read ? "bg-blue-50 dark:bg-blue-900/20" : ""}`}
+                          >
+                            <div className="flex items-start">
+                              <div className="flex-shrink-0 mr-3">
+                                <Image
+                                  src={getUserById(activity.userId).avatar || "/placeholder.svg"}
+                                  alt={getUserById(activity.userId).name}
+                                  width={36}
+                                  height={36}
+                                  className="rounded-full"
+                                />
+                              </div>
+                              <div>
+                                <p className="text-sm">
+                                  <span className="font-medium">{getUserById(activity.userId).name}</span>{" "}
+                                  {activity.details}
+                                </p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                  {formatDate(activity.date)}
+                                </p>
+                              </div>
                             </div>
                           </div>
+                        ))}
+                        {activities.length > 5 && (
+                          <div className="p-2 text-center">
+                            <button className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                              View all notifications
+                            </button>
+                          </div>
+                        )}
+                        {activities.length === 0 && (
+                          <div className="p-4 text-center text-gray-500 dark:text-gray-400">No notifications yet</div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <Moon className="h-5 w-5" />
+              </button> */}
+
+              <button
+                onClick={() => setShowSettingsModal(true)}
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 md:hidden"
+              >
+                <Settings className="h-5 w-5" />
+              </button>
+
+              <div className="hidden md:flex items-center">
+                <div className="relative">
+                  <button
+                    onClick={() => setShowMobileMenu(!showMobileMenu)}
+                    className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    <Image
+                      src={currentUser.avatar || "/placeholder.svg"}
+                      alt={currentUser.name}
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                    <div className="hidden md:block text-left">
+                      <p className="text-sm font-medium">{currentUser.name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{currentUser.role}</p>
+                    </div>
+                    <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                  </button>
+
+                  <AnimatePresence>
+                    {showMobileMenu && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden z-50 border border-gray-200 dark:border-gray-700"
+                      >
+                        <div className="p-3 border-b dark:border-gray-700">
+                          <p className="font-medium">{currentUser.name}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{currentUser.role}</p>
                         </div>
-                      ))}
-                      {activities.length > 5 && (
-                        <div className="p-2 text-center">
-                          <button className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
-                            View all notifications
+                        <div className="p-2">
+                          <button
+                            onClick={() => setShowSettingsModal(true)}
+                            className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-sm"
+                          >
+                            Settings
+                          </button>
+                          <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                            Profile
+                          </button>
+                          <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                            Help
                           </button>
                         </div>
-                      )}
-                      {activities.length === 0 && (
-                        <div className="p-4 text-center text-gray-500 dark:text-gray-400">No notifications yet</div>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                        <div className="p-2 border-t dark:border-gray-700">
+                          <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-sm flex items-center gap-2">
+                            <LogOut className="h-4 w-4" />
+                            Sign out
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <button
-              onClick={() => setShowSettingsModal(true)}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <Settings className="h-5 w-5" />
-            </button>
-
-            <div className="relative">
-              <button onClick={() => setShowMobileMenu(!showMobileMenu)} className="flex items-center space-x-2">
-                <Image
-                  src={currentUser.avatar || "/placeholder.svg"}
-                  alt={currentUser.name}
-                  width={36}
-                  height={36}
-                  className="rounded-full border-2 border-indigo-600 dark:border-indigo-400"
-                />
-                <span className="hidden md:inline font-medium">{currentUser.name}</span>
-              </button>
-            </div>
+        {/* Mobile search */}
+        <div className="md:hidden p-3 border-t border-gray-200 dark:border-gray-700">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search objectives..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 dark:border-gray-600"
+            />
           </div>
         </div>
       </header>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {showMobileMenu && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-gray-800 border-b dark:border-gray-700"
-          >
-            <div className="p-4 space-y-3">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search goals..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 rounded-full bg-white dark:bg-gray-700 text-sm border border-gray-300 focus:outline-amber-700 focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <AnimatePresence>
+          {sidebarOpen && (
+            <motion.aside
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 280, opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className={`bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto z-30 ${sidebarOpen ? "block" : "hidden"} lg:relative fixed inset-y-0 left-0`}
+            >
+              <div className="p-4 flex flex-col h-full">
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Target className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    <h2 className="text-lg font-semibold">Objective Tracker</h2>
+                  </div>
+                  <button
+                    onClick={() => setSidebarOpen(false)}
+                    className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 lg:hidden"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
 
-              <div className="flex flex-col space-y-2">
-                <button
-                  onClick={() => handleTabChange("all")}
-                  className={`px-4 py-2 rounded-lg text-left ${activeTab === "all" ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
-                >
-                  All Goals
-                </button>
-                <button
-                  onClick={() => handleTabChange("health")}
-                  className={`px-4 py-2 rounded-lg text-left ${activeTab === "health" ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400" : "hover:bg-white-100 dark:white:bg-gray-700"}`}
-                >
-                  <span className="mr-2">💪</span> Health
-                </button>
-                <button
-                  onClick={() => handleTabChange("work")}
-                  className={`px-4 py-2 rounded-lg text-left ${activeTab === "work" ? "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
-                >
-                  <span className="mr-2">💼</span> Work
-                </button>
-                <button
-                  onClick={() => handleTabChange("learning")}
-                  className={`px-4 py-2 rounded-lg text-left ${activeTab === "learning" ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
-                >
-                  <span className="mr-2">🎓</span> Learning
-                </button>
-                <button
-                  onClick={() => handleTabChange("personal")}
-                  className={`px-4 py-2 rounded-lg text-left ${activeTab === "personal" ? "bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
-                >
-                  <span className="mr-2">🌱</span> Personal
-                </button>
-              </div>
+                <div className="space-y-1 mb-6">
+                  <button
+                    onClick={() => handleTabChange("all")}
+                    className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-left ${activeTab === "all" ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
+                  >
+                    <Target className="h-4 w-4" />
+                    <span>All Objectives</span>
+                  </button>
+                  <button
+                    onClick={() => handleTabChange("health")}
+                    className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-left ${activeTab === "health" ? "bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-white-400 font-medium" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
+                  >
+                    <Heart className="h-4 w-4" />
+                    <span>Health</span>
+                  </button>
+                  <button
+                    onClick={() => handleTabChange("work")}
+                    className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-left ${activeTab === "work" ? "bg-slate-50 dark:bg-slate-900/30 text-slate-600 dark:text-slate-400 font-medium" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
+                  >
+                    <Briefcase className="h-4 w-4" />
+                    <span>Work</span>
+                  </button>
+                  <button
+                    onClick={() => handleTabChange("learning")}
+                    className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-left ${activeTab === "learning" ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    <span>Learning</span>
+                  </button>
+                  <button
+                    onClick={() => handleTabChange("personal")}
+                    className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-left ${activeTab === "personal" ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
+                  >
+                    <User className="h-4 w-4" />
+                    <span>Personal</span>
+                  </button>
+                </div>
 
-              <div className="pt-2 border-t dark:border-gray-700">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-6">
+                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 px-3">Analytics</h3>
+                  <div className="space-y-1">
+                    <button className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-left hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <BarChart2 className="h-4 w-4" />
+                      <span>Performance</span>
+                    </button>
+                    <button className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-left hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <Clock className="h-4 w-4" />
+                      <span>Timeline</span>
+                    </button>
+                    <button className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-left hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <CheckSquare className="h-4 w-4" />
+                      <span>Completion</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-6">
+                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 px-3">Recent Activity</h3>
+                  <div className="space-y-3">
+                    {activities.slice(0, 3).map((activity) => (
+                      <div key={activity.id} className="px-3 py-2 text-sm">
+                        <div className="flex items-start gap-2">
+                          <Image
+                            src={getUserById(activity.userId).avatar || "/placeholder.svg"}
+                            alt={getUserById(activity.userId).name}
+                            width={24}
+                            height={24}
+                            className="rounded-full mt-0.5"
+                          />
+                          <div>
+                            <p className="text-xs">
+                              <span className="font-medium">{getUserById(activity.userId).name}</span>{" "}
+                              {activity.details}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(activity.date)}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div className="flex items-center gap-3 px-3 py-2">
                     <Image
                       src={currentUser.avatar || "/placeholder.svg"}
                       alt={currentUser.name}
@@ -882,379 +1040,320 @@ export default function GoalTracker() {
                       height={36}
                       className="rounded-full"
                     />
-                    <div>
-                      <p className="font-medium">{currentUser.name}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{currentUser.role}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{currentUser.name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{currentUser.role}</p>
                     </div>
+                    <button
+                      onClick={() => setShowSettingsModal(true)}
+                      className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      <Settings className="h-4 w-4" />
+                    </button>
                   </div>
-                  <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <LogOut className="h-5 w-5" />
+                </div>
+              </div>
+            </motion.aside>
+          )}
+        </AnimatePresence>
+
+        {/* Main content */}
+        <main className="flex-1 overflow-auto">
+        <section className="mb-8">
+          <div className={`rounded-s overflow-hidden ${darkMode ? "bg-gray-800" : "bg-white"} shadow-sm`}>
+            <div className="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
+              <div className="absolute inset-0 bg-black/20"></div>
+              <div className="absolute inset-0 flex items-center px-8">
+                <div className="max-w-2xl">
+                  <h1 className="text-3xl font-bold text-white mb-2">Welcome back! {/*, {userName.split(" ")[0]}*/} </h1>
+                  <p className="text-white/90 mb-4">Track your goals, celebrate progress, and achieve more.</p>
+                  <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                    Start Tracking
                   </button>
                 </div>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Main content */}
-      <main className="flex-1 container mx-auto px-4 py-6 md:flex">
-        {/* Sidebar - Desktop only */}
-        <div className="hidden md:block w-56 pr-6">
-          <div className="space-y-2">
-            <button
-              onClick={() => handleTabChange("all")}
-              className={`w-full px-4 py-2 rounded-lg text-left ${activeTab === "all" ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" : "hover:bg-white-100 dark:hover:bg-white-700"}`}
-            >
-              All Goals
-            </button>
-            <button
-              onClick={() => handleTabChange("health")}
-              className={`w-full px-4 py-2 rounded-lg text-left ${activeTab === "health" ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400" : "hover:bg-white-100 dark:hover:bg-white-700"}`}
-            >
-              <span className="mr-2">💪</span> Health
-            </button>
-            <button
-              onClick={() => handleTabChange("work")}
-              className={`w-full px-4 py-2 rounded-lg text-left ${activeTab === "work" ? "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
-            >
-              <span className="mr-2">💼</span> Work
-            </button>
-            <button
-              onClick={() => handleTabChange("learning")}
-              className={`w-full px-4 py-2 rounded-lg text-left ${activeTab === "learning" ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" : "hover:bg-gray-100 dark:hover:bg-gray-700"}`}
-            >
-              <span className="mr-2">🎓</span> Learning
-            </button>
-            <button
-              onClick={() => handleTabChange("personal")}
-              className={`w-full px-4 py-2 rounded-lg text-left ${activeTab === "personal" ? "bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400" : "hover:bg-white-100 dark:hover:bg-white-700"}`}
-            >
-              <span className="mr-2">🌱</span> Personal
-            </button>
           </div>
-
-          <div className="mt-8">
-            <h3 className="font-medium text-gray-500 dark:text-gray-400 mb-3">Overview</h3>
-            <div className="bg-white dark:bg-white-800 rounded-lg shadow p-4 mb-4">
-              <h4 className="font-medium mb-2">Goals by Category</h4>
-              <div className="h-40 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={getCategoryData()}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={50}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={({ name }) => name}
-                    >
-                      {getCategoryData().map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+        </section>
+          <div className="container mx-auto p-4 md:p-6 max-w-7xl">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-2xl font-bold">
+                  {activeTab === "all"
+                    ? "All Objectives"
+                    : activeTab === "health"
+                      ? "Health Objectives"
+                      : activeTab === "work"
+                        ? "Work Objectives"
+                        : activeTab === "learning"
+                          ? "Learning Objectives"
+                          : "Personal Objectives"}
+                </h2>
+                {/* <p className="text-gray-500 dark:text-gray-400">
+                  Track your progress and achieve your goals efficiently
+                </p> */}
               </div>
-            </div>
-
-            <div className="bg-white dark:bg-white-800 rounded-lg shadow p-4">
-              <h4 className="font-medium mb-2">Recent Activity</h4>
-              <div className="space-y-3">
-                {activities.slice(0, 3).map((activity) => (
-                  <div key={activity.id} className="flex items-start space-x-2">
-                    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-                      <Image
-                        src={getUserById(activity.userId).avatar || "/placeholder.svg"}
-                        alt={getUserById(activity.userId).name}
-                        width={32}
-                        height={32}
-                      />
-                    </div>
-                    <div>
-                      <p className="text-xs">
-                        <span className="font-medium">{getUserById(activity.userId).name}</span> {activity.details}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(activity.date)}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Goals grid */}
-        <div className="flex-1">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">
-              {activeTab === "all"
-                ? "All Goals"
-                : activeTab === "health"
-                  ? "💪 Health Goals"
-                  : activeTab === "work"
-                    ? "💼 Work Goals"
-                    : activeTab === "learning"
-                      ? "🎓 Learning Goals"
-                      : "🌱 Personal Goals"}
-            </h2>
-            <button
-              onClick={() => setShowNewGoalModal(true)}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-1 transition-colors"
-            >
-              <Plus className="h-5 w-5" />
-              <span>New Goal</span>
-            </button>
-          </div>
-
-          {filteredGoals.length === 0 ? (
-            <div className="bg-white dark:bg-white-800 rounded-lg shadow p-8 text-center">
-              <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-medium mb-2">No goals found</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">
-                {searchQuery ? "Try a different search term or" : "Get started by"} creating a new goal
-              </p>
-              <button
-                onClick={() => setShowNewGoalModal(true)}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-1 transition-colors mx-auto"
-              >
-                <Plus className="h-5 w-5" />
-                <span>New Goal</span>
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {filteredGoals.map((goal) => (
-                <motion.div
-                  key={goal.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden hover:shadow-md transition-shadow"
+              <div className="flex items-center gap-2">
+                <div className="relative hidden md:block">
+                  <button className="flex items-center gap-1 px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                    <Filter className="h-4 w-4" />
+                    <span>Filter</span>
+                    <ChevronDown className="h-4 w-4 ml-1" />
+                  </button>
+                </div>
+                <button
+                  onClick={() => setShowNewGoalModal(true)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-1 transition-colors"
                 >
-                  <div className="h-2" style={{ backgroundColor: goal.color }}></div>
-                  <div className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <span
-                          className={`inline-block px-2 py-1 rounded text-xs font-medium ${getCategoryColor(goal.category)} bg-opacity-20 dark:bg-opacity-30 text-${goal.category === "health" ? "emerald" : goal.category === "work" ? "amber" : goal.category === "learning" ? "indigo" : "violet"}-700 dark:text-${goal.category === "health" ? "emerald" : goal.category === "work" ? "amber" : goal.category === "learning" ? "indigo" : "violet"}-300 mb-2`}
-                        >
-                          {getCategoryIcon(goal.category)}{" "}
-                          {goal.category.charAt(0).toUpperCase() + goal.category.slice(1)}
-                        </span>
-                        <h3 className="font-bold text-lg mb-1">{goal.title}</h3>
-                      </div>
-                      <button
-                        onClick={() => {
-                          setSelectedGoal(goal)
-                          setShowGoalDetailModal(true)
-                        }}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                      >
-                        <MoreHorizontal className="h-5 w-5" />
-                      </button>
-                    </div>
+                  <Plus className="h-4 w-4" />
+                  <span>New Objective</span>
+                </button>
+              </div>
+            </div>
 
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">{goal.description}</p>
-
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Progress</span>
-                        <span className="font-medium">
-                          {goal.progress}/{goal.target}
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-1">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(goal.progress / goal.target) * 100}%` }}
-                          transition={{ duration: 0.5 }}
-                          className={`h-2.5 rounded-full ${getProgressColor(Math.round((goal.progress / goal.target) * 100))}`}
-                        ></motion.div>
-                      </div>
-                      <div className="flex justify-between mt-2">
-                        <button
-                          onClick={() => handleProgressUpdate(goal.id, -1)}
-                          className="text-xs px-3 py-2 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                        >
-                          -1
-                        </button>
-                        <button
-                          onClick={() => handleProgressUpdate(goal.id, 1)}
-                          className="text-xs px-3 py-2 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                        >
-                          +1
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between items-center mb-3">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {goal.milestones.map((milestone, index) => (
-                          <div
-                            key={index}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
-                              milestone.achieved
-                                ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
-                                : "bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500"
-                            }`}
-                            title={`${milestone.percent}% - ${milestone.description}`}
-                          >
-                            {milestone.badge}
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                        <Calendar className="h-3 w-3 mr-1" />
-                        {new Date(goal.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                      </div>
-                    </div>
-
-                    <div className="border-t dark:border-gray-700 pt-3">
-                      <div className="flex justify-between items-center mb-2">
-                        <h4 className="text-sm font-medium flex items-center">
-                          <MessageSquare className="h-4 w-4 mr-1" />
-                          Comments ({goal.comments.length})
-                        </h4>
-                        <button
-                          onClick={() => {
-                            setSelectedGoal(goal)
-                            setShowGoalDetailModal(true)
-                          }}
-                          className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
-                        >
-                          View all
-                        </button>
-                      </div>
-
-                      {goal.comments.length > 0 ? (
-                        <div className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                          <div className="flex items-start space-x-2">
-                            <Image
-                              src={
-                                getUserById(goal.comments[goal.comments.length - 1].userId).avatar || "/placeholder.svg"
-                              }
-                              alt={getUserById(goal.comments[goal.comments.length - 1].userId).name}
-                              width={24}
-                              height={24}
-                              className="rounded-full mt-1"
-                            />
-                            <div>
-                              <p className="font-medium text-xs">
-                                {getUserById(goal.comments[goal.comments.length - 1].userId).name}
-                              </p>
-                              <p className="line-clamp-1">{goal.comments[goal.comments.length - 1].text}</p>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">No comments yet</p>
-                      )}
-
-                      <div className="mt-4 flex items-center space-x-2">
-                        <Image
-                          src={currentUser.avatar || "/placeholder.svg"}
-                          alt={currentUser.name}
-                          width={36}
-                          height={36}
-                          className="rounded-full flex-shrink-0"
-                        />
-                        <div className="flex-1 relative">
-                          <input
-                            type="text"
-                            placeholder="Add a comment..."
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") {
-                                handleAddComment(goal.id)
-                              }
-                            }}
-                            className="w-full px-4 py-2 pr-10 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                          />
-                          <button
-                            onClick={() => handleAddComment(goal.id)}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
+            {filteredGoals.length === 0 ? (
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 mb-4">
+                  <Target className="h-8 w-8 text-gray-500 dark:text-gray-400" />
+                </div>
+                <h3 className="text-xl font-medium mb-2">No objectives found</h3>
+                <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                  {searchQuery ? "Try a different search term or" : "Get started by"} creating a new objective to track
+                  your progress
+                </p>
+                <button
+                  onClick={() => setShowNewGoalModal(true)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-1 transition-colors mx-auto"
+                >
+                  <Plus className="h-4 w-4" />
+                  <span>Create Objective</span>
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredGoals.map((goal) => (
+                  <motion.div
+                    key={goal.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
+                  >
+                    <div className="h-1" style={{ backgroundColor: goal.color }}></div>
+                    <div className="p-4">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <div className="flex items-center gap-1 mb-2">
+                            <span
+                              className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium ${getCategoryColor(goal.category)}`}
                             >
-                              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                            </svg>
+                              {getCategoryIcon(goal.category)}
+                              <span className="capitalize">{goal.category}</span>
+                            </span>
+                          </div>
+                          <h3 className="font-semibold text-lg">{goal.title}</h3>
+                        </div>
+                        <div className="relative">
+                          <button
+                            onClick={() => {
+                              setSelectedGoal(goal)
+                              setShowGoalDetailModal(true)
+                            }}
+                            className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
+                          >
+                            <MoreHorizontal className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
+
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">{goal.description}</p>
+
+                      <div className="mb-4">
+                        <div className="flex justify-between text-sm mb-1.5">
+                          <span className="text-gray-500 dark:text-gray-400">Progress</span>
+                          <span className="font-medium">
+                            {goal.progress}/{goal.target}
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${(goal.progress / goal.target) * 100}%` }}
+                            transition={{ duration: 0.5 }}
+                            className={`h-2 rounded-full ${getProgressColor(Math.round((goal.progress / goal.target) * 100))}`}
+                          ></motion.div>
+                        </div>
+                        <div className="flex justify-between gap-2">
+                          <button
+                            onClick={() => handleProgressUpdate(goal.id, -1)}
+                            className="flex-1 text-xs px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium"
+                          >
+                            -1
+                          </button>
+                          <button
+                            onClick={() => handleProgressUpdate(goal.id, 1)}
+                            className="flex-1 text-xs px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium"
+                          >
+                            +1
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="flex gap-1">
+                          {goal.milestones.map((milestone, index) => (
+                            <div
+                              key={index}
+                              className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${
+                                milestone.achieved
+                                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800"
+                                  : "bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-600"
+                              }`}
+                              title={`${milestone.percent}% - ${milestone.description}`}
+                            >
+                              {milestone.badge}
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                          <Calendar className="h-3.5 w-3.5 mr-1" />
+                          {new Date(goal.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                        </div>
+                      </div>
+
+                      <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+                        <div className="flex justify-between items-center mb-2">
+                          <h4 className="text-sm font-medium flex items-center">
+                            <MessageSquare className="h-3.5 w-3.5 mr-1" />
+                            Comments ({goal.comments.length})
+                          </h4>
+                          <button
+                            onClick={() => {
+                              setSelectedGoal(goal)
+                              setShowGoalDetailModal(true)
+                            }}
+                            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center"
+                          >
+                            View all
+                            <ArrowRight className="h-3 w-3 ml-0.5" />
+                          </button>
+                        </div>
+
+                        {goal.comments.length > 0 ? (
+                          <div className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                            <div className="flex items-start gap-2">
+                              <Image
+                                src={
+                                  getUserById(goal.comments[goal.comments.length - 1].userId).avatar ||
+                                  "/placeholder.svg"
+                                }
+                                alt={getUserById(goal.comments[goal.comments.length - 1].userId).name}
+                                width={24}
+                                height={24}
+                                className="rounded-full mt-0.5"
+                              />
+                              <div>
+                                <p className="font-medium text-xs">
+                                  {getUserById(goal.comments[goal.comments.length - 1].userId).name}
+                                </p>
+                                <p className="line-clamp-1 text-xs">{goal.comments[goal.comments.length - 1].text}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">No comments yet</p>
+                        )}
+
+                        <div className="mt-3 flex items-center gap-2">
+                          <Image
+                            src={currentUser.avatar || "/placeholder.svg"}
+                            alt={currentUser.name}
+                            width={28}
+                            height={28}
+                            className="rounded-full flex-shrink-0"
+                          />
+                          <div className="flex-1 relative">
+                            <input
+                              type="text"
+                              placeholder="Add a comment..."
+                              value={newComment}
+                              onChange={(e) => setNewComment(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  handleAddComment(goal.id)
+                                }
+                              }}
+                              className="w-full px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pr-8"
+                            />
+                            <button
+                              onClick={() => handleAddComment(goal.id)}
+                              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                            >
+                              <ChevronRight className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+            {/* Analytics Section */}
+            {filteredGoals.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-xl font-bold mb-4">Analytics Overview</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                    <h4 className="font-medium mb-4">Objectives by Category</h4>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={getCategoryData()}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="value"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {getCategoryData().map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip />
+                        </PieChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Activity sidebar - Desktop only */}
-        <div className="hidden lg:block w-72 pl-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sticky top-20">
-            <h3 className="font-bold mb-4">Recent Activity</h3>
-            <div className="space-y-4 max-h-[calc(100vh-180px)] overflow-y-auto pr-2">
-              {activities.slice(0, 10).map((activity) => (
-                <div
-                  key={activity.id}
-                  className={`p-3 rounded-lg ${!activity.read ? "bg-indigo-50 dark:bg-indigo-900/20" : "bg-gray-50 dark:bg-gray-700/30"}`}
-                >
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 mr-3">
-                      <Image
-                        src={getUserById(activity.userId).avatar || "/placeholder.svg"}
-                        alt={getUserById(activity.userId).name}
-                        width={36}
-                        height={36}
-                        className="rounded-full"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-sm">
-                        <span className="font-medium">{getUserById(activity.userId).name}</span> {activity.details}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{formatDate(activity.date)}</p>
+                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                    <h4 className="font-medium mb-4">Progress Overview</h4>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={getProgressData()} margin={{ top: 5, right: 5, left: 0, bottom: 25 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                          <XAxis dataKey="name" tick={{ fontSize: 10 }} angle={-45} textAnchor="end" />
+                          <YAxis domain={[0, 100]} />
+                          <Tooltip />
+                          <Bar dataKey="progress" fill="#1e3a8a" />
+                        </BarChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
                 </div>
-              ))}
-
-              {activities.length === 0 && (
-                <div className="text-center text-gray-500 dark:text-gray-400 py-4">No activity yet</div>
-              )}
-            </div>
-
-            <div className="mt-4 pt-4 border-t dark:border-gray-700">
-              <h3 className="font-bold mb-4">Progress Overview</h3>
-              <div className="h-60">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={getProgressData()} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                    <YAxis domain={[0, 100]} />
-                    <Tooltip />
-                    <Bar dataKey="progress" fill="#4f46e5" />
-                  </BarChart>
-                </ResponsiveContainer>
               </div>
-            </div>
+            )}
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
 
       {/* Floating action button - Mobile only */}
       <button
         onClick={() => setShowNewGoalModal(true)}
-        className="md:hidden fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-colors z-30"
+        className="md:hidden fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-colors z-30"
       >
         <Plus className="h-6 w-6" />
       </button>
@@ -1274,11 +1373,11 @@ export default function GoalTracker() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4"
             >
-              <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
-                <h3 className="text-lg font-bold">Create New Goal</h3>
+              <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-bold">Create New Objective</h3>
                 <button
                   onClick={() => setShowNewGoalModal(false)}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -1288,15 +1387,15 @@ export default function GoalTracker() {
                 <div className="space-y-4">
                   <div>
                     <label htmlFor="title" className="block text-sm font-medium mb-1">
-                      Goal Title
+                      Objective Title
                     </label>
                     <input
                       type="text"
                       id="title"
                       value={newGoalForm.title}
                       onChange={(e) => setNewGoalForm({ ...newGoalForm, title: e.target.value })}
-                      className="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700"
-                      placeholder="Enter goal title"
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
+                      placeholder="Enter objective title"
                     />
                   </div>
 
@@ -1308,8 +1407,8 @@ export default function GoalTracker() {
                       id="description"
                       value={newGoalForm.description}
                       onChange={(e) => setNewGoalForm({ ...newGoalForm, description: e.target.value })}
-                      className="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700"
-                      placeholder="Describe your goal"
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
+                      placeholder="Describe your objective"
                       rows={3}
                     ></textarea>
                   </div>
@@ -1326,7 +1425,7 @@ export default function GoalTracker() {
                         onChange={(e) =>
                           setNewGoalForm({ ...newGoalForm, target: Number.parseInt(e.target.value) || 0 })
                         }
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700"
+                        className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
                         min="1"
                       />
                     </div>
@@ -1339,7 +1438,7 @@ export default function GoalTracker() {
                         id="category"
                         value={newGoalForm.category}
                         onChange={(e) => setNewGoalForm({ ...newGoalForm, category: e.target.value as any })}
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700"
+                        className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
                       >
                         <option value="health">Health</option>
                         <option value="work">Work</option>
@@ -1358,24 +1457,24 @@ export default function GoalTracker() {
                       id="dueDate"
                       value={newGoalForm.dueDate}
                       onChange={(e) => setNewGoalForm({ ...newGoalForm, dueDate: e.target.value })}
-                      className="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700"
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 border-t dark:border-gray-700 flex justify-end space-x-2">
+              <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-2">
                 <button
                   onClick={() => setShowNewGoalModal(false)}
-                  className="px-4 py-2 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleCreateGoal}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
                 >
-                  Create Goal
+                  Create Objective
                 </button>
               </div>
             </motion.div>
@@ -1398,25 +1497,25 @@ export default function GoalTracker() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4"
             >
-              <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+              <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
                 <h3 className="text-lg font-bold">Settings</h3>
                 <button
                   onClick={() => setShowSettingsModal(false)}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <div className="p-4 space-y-4">
+              <div className="p-4 space-y-6">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center gap-2">
                     <Moon className="h-5 w-5" />
-                    <span>Dark Mode</span>
+                    <span className="font-medium">Dark Mode</span>
                   </div>
                   <button
                     onClick={() => setDarkMode(!darkMode)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${darkMode ? "bg-indigo-600" : "bg-gray-200 dark:bg-gray-700"}`}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${darkMode ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-700"}`}
                   >
                     <span
                       className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${darkMode ? "translate-x-6" : "translate-x-1"}`}
@@ -1424,9 +1523,9 @@ export default function GoalTracker() {
                   </button>
                 </div>
 
-                <div className="border-t dark:border-gray-700 pt-4">
-                  <h4 className="font-medium mb-2">Account</h4>
-                  <div className="flex items-center space-x-3 mb-4">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <h4 className="font-medium mb-3">Account</h4>
+                  <div className="flex items-center gap-3 mb-4">
                     <Image
                       src={currentUser.avatar || "/placeholder.svg"}
                       alt={currentUser.name}
@@ -1440,47 +1539,53 @@ export default function GoalTracker() {
                     </div>
                   </div>
 
-                  <button className="w-full px-4 py-2 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center space-x-2">
+                  <button className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center gap-2 text-sm font-medium">
                     <Edit className="h-4 w-4" />
                     <span>Edit Profile</span>
                   </button>
                 </div>
 
-                <div className="border-t dark:border-gray-700 pt-4">
-                  <h4 className="font-medium mb-2">Notifications</h4>
-                  <div className="space-y-2">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <h4 className="font-medium mb-3">Notifications</h4>
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span>Email Notifications</span>
-                      <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-indigo-600">
+                      <span className="text-sm">Email Notifications</span>
+                      <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-blue-600">
                         <span className="inline-block h-4 w-4 transform rounded-full bg-white translate-x-6" />
                       </button>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span>Push Notifications</span>
-                      <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-indigo-600">
+                      <span className="text-sm">Push Notifications</span>
+                      <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-blue-600">
+                        <span className="inline-block h-4 w-4 transform rounded-full bg-white translate-x-6" />
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Milestone Alerts</span>
+                      <button className="relative inline-flex h-6 w-11 items-center rounded-full bg-blue-600">
                         <span className="inline-block h-4 w-4 transform rounded-full bg-white translate-x-6" />
                       </button>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t dark:border-gray-700 pt-4">
-                  <h4 className="font-medium mb-2">Data</h4>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <h4 className="font-medium mb-3">Data Management</h4>
                   <div className="space-y-2">
-                    <button className="w-full px-4 py-2 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-left">
-                      Export Goals
+                    <button className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-left text-sm">
+                      Export All Data
                     </button>
-                    <button className="w-full px-4 py-2 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-left text-rose-500">
-                      Reset All Data
+                    <button className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-left text-sm text-red-600 dark:text-red-400">
+                      Reset Application Data
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 border-t dark:border-gray-700 flex justify-end">
+              <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                 <button
                   onClick={() => setShowSettingsModal(false)}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
                 >
                   Save Changes
                 </button>
@@ -1505,25 +1610,25 @@ export default function GoalTracker() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col mx-4"
             >
-              <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
-                <div className="flex items-center space-x-2 truncate max-w-[70%]">
+              <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-2 truncate max-w-[70%]">
                   <div
-                    className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center ${getCategoryColor(selectedGoal.category)} bg-opacity-20 dark:bg-opacity-30`}
+                    className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center ${getCategoryColor(selectedGoal.category)}`}
                   >
                     {getCategoryIcon(selectedGoal.category)}
                   </div>
                   <h3 className="text-lg font-bold truncate">{selectedGoal.title}</h3>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowShareModal(true)}
-                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
                   >
                     <Share2 className="h-5 w-5" />
                   </button>
                   <button
                     onClick={() => setShowGoalDetailModal(false)}
-                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
                   >
                     <X className="h-5 w-5" />
                   </button>
@@ -1540,41 +1645,41 @@ export default function GoalTracker() {
 
                     <div className="mb-6">
                       <h4 className="font-medium mb-2">Progress</h4>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Current Progress</span>
+                      <div className="flex justify-between text-sm mb-1.5">
+                        <span className="text-gray-500 dark:text-gray-400">Current Progress</span>
                         <span className="font-medium">
                           {selectedGoal.progress}/{selectedGoal.target}
                         </span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-4">
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-4">
                         <div
-                          className={`h-2.5 rounded-full ${getProgressColor(Math.round((selectedGoal.progress / selectedGoal.target) * 100))}`}
+                          className={`h-2 rounded-full ${getProgressColor(Math.round((selectedGoal.progress / selectedGoal.target) * 100))}`}
                           style={{ width: `${(selectedGoal.progress / selectedGoal.target) * 100}%` }}
                         ></div>
                       </div>
 
-                      <div className="flex space-x-2">
+                      <div className="flex gap-2">
                         <button
                           onClick={() => handleProgressUpdate(selectedGoal.id, -5)}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                          className="flex-1 px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
                         >
                           -5
                         </button>
                         <button
                           onClick={() => handleProgressUpdate(selectedGoal.id, -1)}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                          className="flex-1 px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
                         >
                           -1
                         </button>
                         <button
                           onClick={() => handleProgressUpdate(selectedGoal.id, 1)}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                          className="flex-1 px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
                         >
                           +1
                         </button>
                         <button
                           onClick={() => handleProgressUpdate(selectedGoal.id, 5)}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                          className="flex-1 px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
                         >
                           +5
                         </button>
@@ -1587,16 +1692,16 @@ export default function GoalTracker() {
                         {selectedGoal.milestones.map((milestone, index) => (
                           <div
                             key={index}
-                            className={`p-3 rounded-lg flex items-center space-x-3 ${
+                            className={`p-3 rounded-lg flex items-center gap-3 ${
                               milestone.achieved
-                                ? "bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800"
+                                ? "bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
                                 : "bg-gray-50 dark:bg-gray-700/30 border border-gray-200 dark:border-gray-700"
                             }`}
                           >
                             <div
                               className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${
                                 milestone.achieved
-                                  ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
+                                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                                   : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500"
                               }`}
                             >
@@ -1608,7 +1713,7 @@ export default function GoalTracker() {
                                 <span className="text-sm">{milestone.percent}%</span>
                               </div>
                               {milestone.achieved && (
-                                <div className="flex items-center text-xs text-indigo-600 dark:text-indigo-400 mt-1">
+                                <div className="flex items-center text-xs text-blue-600 dark:text-blue-400 mt-1">
                                   <CheckCircle className="h-3 w-3 mr-1" />
                                   Achieved
                                 </div>
@@ -1625,12 +1730,10 @@ export default function GoalTracker() {
                       <div className="flex justify-between items-center mb-2">
                         <h4 className="font-medium">Details</h4>
                       </div>
-                      <div className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 space-y-3">
+                      <div className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 space-y-3 border border-gray-200 dark:border-gray-700">
                         <div className="flex justify-between">
                           <span className="text-gray-500 dark:text-gray-400">Category</span>
-                          <span className="font-medium">
-                            {selectedGoal.category.charAt(0).toUpperCase() + selectedGoal.category.slice(1)}
-                          </span>
+                          <span className="font-medium capitalize">{selectedGoal.category}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-500 dark:text-gray-400">Created</span>
@@ -1653,27 +1756,27 @@ export default function GoalTracker() {
                       <div className="flex justify-between items-center mb-2">
                         <h4 className="font-medium">Comments</h4>
                       </div>
-                      <div className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 max-h-80 overflow-y-auto">
+                      <div className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 max-h-80 overflow-y-auto border border-gray-200 dark:border-gray-700">
                         {selectedGoal.comments.length > 0 ? (
                           <div className="space-y-4">
                             {selectedGoal.comments.map((comment) => (
-                              <div key={comment.id} className="flex space-x-3">
+                              <div key={comment.id} className="flex gap-3">
                                 <Image
                                   src={getUserById(comment.userId).avatar || "/placeholder.svg"}
                                   alt={getUserById(comment.userId).name}
                                   width={36}
                                   height={36}
-                                  className="rounded-full"
+                                  className="rounded-full mt-0.5"
                                 />
                                 <div className="flex-1">
-                                  <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm">
+                                  <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm border border-gray-200 dark:border-gray-700">
                                     <div className="flex justify-between items-center mb-1">
                                       <span className="font-medium">{getUserById(comment.userId).name}</span>
                                       <span className="text-xs text-gray-500 dark:text-gray-400">
                                         {formatDate(comment.date)}
                                       </span>
                                     </div>
-                                    <p className="text-gray-600 dark:text-gray-300">{comment.text}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 text-sm">{comment.text}</p>
                                   </div>
                                 </div>
                               </div>
@@ -1684,7 +1787,7 @@ export default function GoalTracker() {
                         )}
                       </div>
 
-                      <div className="mt-4 flex items-center space-x-2">
+                      <div className="mt-4 flex items-center gap-2">
                         <Image
                           src={currentUser.avatar || "/placeholder.svg"}
                           alt={currentUser.name}
@@ -1703,20 +1806,13 @@ export default function GoalTracker() {
                                 handleAddComment(selectedGoal.id)
                               }
                             }}
-                            className="w-full px-4 py-2 pr-10 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                           />
                           <button
                             onClick={() => handleAddComment(selectedGoal.id)}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                            </svg>
+                            <ChevronRight className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
@@ -1725,20 +1821,32 @@ export default function GoalTracker() {
                 </div>
               </div>
 
-              <div className="p-4 border-t dark:border-gray-700 flex justify-between">
+              <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-between">
                 <button
                   onClick={() => handleDeleteGoal(selectedGoal.id)}
-                  className="px-4 py-2 text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 flex items-center space-x-1"
+                  className="px-4 py-2 text-red-600 hover:text-red-700 dark:hover:text-red-400 flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
                 >
-                  <Trash2 className="h-5 w-5" />
-                  <span>Delete Goal</span>
+                  <Trash2 className="h-4 w-4" />
+                  <span>Delete Objective</span>
                 </button>
-                <button
-                  onClick={() => setShowGoalDetailModal(false)}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
-                >
-                  Close
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setShowGoalDetailModal(false)}
+                    className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium"
+                  >
+                    Close
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowGoalDetailModal(false)
+                      setShowShareModal(true)
+                    }}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center gap-1"
+                  >
+                    <Share2 className="h-4 w-4" />
+                    Share
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -1760,65 +1868,62 @@ export default function GoalTracker() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4"
             >
-              <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
-                <h3 className="text-lg font-bold">Share Goal</h3>
+              <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-bold">Share Objective</h3>
                 <button
                   onClick={() => setShowShareModal(false)}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <div className="p-4">
-                <div className="bg-white-900 dark:bg-white-700 p-4 rounded-lg mb-4">
-                  <div className="flex items-center space-x-3 mb-2">
+              <div className="p-4 space-y-4">
+                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center gap-3 mb-2">
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${getCategoryColor(selectedGoal.category)} bg-opacity-20 dark:bg-opacity-30`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${getCategoryColor(selectedGoal.category)}`}
                     >
                       {getCategoryIcon(selectedGoal.category)}
                     </div>
                     <div>
-                      <h4 className="font-bold">{selectedGoal.title}</h4>
+                      <h4 className="font-medium">{selectedGoal.title}</h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {Math.round((selectedGoal.progress / selectedGoal.target) * 100)}% Complete
                       </p>
                     </div>
                   </div>
-                  <div className="w-full bg-white-200 dark:bg-white-600 rounded-full h-2.5">
+                  <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                     <div
-                      className={`h-2.5 rounded-full ${getProgressColor(Math.round((selectedGoal.progress / selectedGoal.target) * 100))}`}
+                      className={`h-2 rounded-full ${getProgressColor(Math.round((selectedGoal.progress / selectedGoal.target) * 100))}`}
                       style={{ width: `${(selectedGoal.progress / selectedGoal.target) * 100}%` }}
                     ></div>
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Share Link</label>
+                <div>
+                  <label className="text-sm font-medium mb-1.5 block">Share Link</label>
                   <div className="flex">
                     <input
-                      type="text"
-                      value={`https://goaltracker.app/goals/${selectedGoal.id}`}
                       readOnly
-                      className="flex-1 px-3 py-2 border dark:border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700"
+                      value={`https://objectives.app/goals/${selectedGoal.id}`}
+                      className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
                     />
-                    <button className="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-r-lg">
-                      Copy
-                    </button>
+                    <button className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-r-md">Copy</button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Share with</label>
-                  <div className="space-y-2">
+                  <label className="text-sm font-medium mb-2 block">Share with Collaborators</label>
+                  <div className="space-y-1 max-h-60 overflow-y-auto">
                     {mockUsers
                       .filter((user) => user.id !== currentUser.id)
                       .map((user) => (
                         <div
                           key={user.id}
-                          className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                          className="flex items-center justify-between p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
                         >
-                          <div className="flex items-center space-x-3">
+                          <div className="flex items-center gap-3">
                             <Image
                               src={user.avatar || "/placeholder.svg"}
                               alt={user.name}
@@ -1827,11 +1932,11 @@ export default function GoalTracker() {
                               className="rounded-full"
                             />
                             <div>
-                              <p className="font-medium">{user.name}</p>
+                              <p className="text-sm font-medium">{user.name}</p>
                               <p className="text-xs text-gray-500 dark:text-gray-400">{user.role}</p>
                             </div>
                           </div>
-                          <button className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-sm">
+                          <button className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-md text-sm">
                             Share
                           </button>
                         </div>
@@ -1840,10 +1945,10 @@ export default function GoalTracker() {
                 </div>
               </div>
 
-              <div className="p-4 border-t dark:border-gray-700 flex justify-end">
+              <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                 <button
                   onClick={() => setShowShareModal(false)}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
                 >
                   Done
                 </button>
