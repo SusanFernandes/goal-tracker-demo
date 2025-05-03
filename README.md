@@ -23,7 +23,6 @@ A visually engaging and interactive **Goal Tracker Dashboard** built with **Next
 - ✅ **Goal Progress Bars** for ongoing and completed goals
 - 📊 **Pie and Bar Charts** using `Recharts`
 - 🎉 **Animated Confetti Celebration** with `canvas-confetti`
-- 🧩 **Modular Component Design** (Cards, Milestones, Charts, etc.)
 - 🔄 **Smooth UI Transitions** using `Framer Motion`
 - 🌗 **Iconography** with `Lucide-react`
 - 🧪 **Mock Data Integration** for quick prototyping
@@ -153,9 +152,8 @@ This project is licensed under the [MIT License](LICENSE).
 
 Have questions or suggestions?
 
-- [LinkedIn](https://linkedin.com/in/your-profile)
-- [Twitter](https://twitter.com/your-handle)
-- 📧 Email: your.email@example.com
+- [LinkedIn][https://in.linkedin.com/in/susanfernandes13]
+- 📧 Email: susanfernandes1305@gmail.com
 
 ---
 
