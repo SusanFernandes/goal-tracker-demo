@@ -23,7 +23,6 @@ A visually engaging and interactive **Goal Tracker Dashboard** built with **Next
 - ✅ **Goal Progress Bars** for ongoing and completed goals
 - 📊 **Pie and Bar Charts** using `Recharts`
 - 🎉 **Animated Confetti Celebration** with `canvas-confetti`
-- 🧩 **Modular Component Design** (Cards, Milestones, Charts, etc.)
 - 🔄 **Smooth UI Transitions** using `Framer Motion`
 - 🌗 **Iconography** with `Lucide-react`
 - 🧪 **Mock Data Integration** for quick prototyping
@@ -93,13 +92,20 @@ The celebration effect is triggered when progress reaches `100%`.
 ```ts
 import confetti from "canvas-confetti";
 
-const triggerCelebration = () => {
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.6 },
-  });
-};
+  if (!wasAchieved && isNowAchieved) {
+    setTimeout(() => {
+      if (confettiRef.current) {
+        const rect = confettiRef.current.getBoundingClientRect()
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: {
+            x: rect.left / window.innerWidth + rect.width / window.innerWidth / 2,
+            y: rect.top / window.innerHeight,
+          },
+        })
+      }
+    }, 100)
 ```
 
 Don’t forget to install its types for TypeScript support:
@@ -114,15 +120,10 @@ npm i --save-dev @types/canvas-confetti
 
 ```
 .
-├── components/
-│   ├── Charts/
-│   ├── Cards/
-│   └── Milestones/
-├── pages/
-│   └── index.tsx  ← Main Dashboard Page
-├── styles/
+
+├── app/
+│   └── page.tsx  ← Main Dashboard Page
 │   └── globals.css
-├── public/
 ├── tsconfig.json
 └── README.md
 ```
@@ -151,9 +152,8 @@ This project is licensed under the [MIT License](LICENSE).
 
 Have questions or suggestions?
 
-- [LinkedIn](https://linkedin.com/in/your-profile)
-- [Twitter](https://twitter.com/your-handle)
-- 📧 Email: your.email@example.com
+- [LinkedIn][https://in.linkedin.com/in/susanfernandes13]
+- 📧 Email: susanfernandes1305@gmail.com
 
 ---
 
