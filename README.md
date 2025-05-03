@@ -121,15 +121,10 @@ npm i --save-dev @types/canvas-confetti
 
 ```
 .
-├── components/
-│   ├── Charts/
-│   ├── Cards/
-│   └── Milestones/
-├── pages/
-│   └── index.tsx  ← Main Dashboard Page
-├── styles/
+
+├── app/
+│   └── page.tsx  ← Main Dashboard Page
 │   └── globals.css
-├── public/
 ├── tsconfig.json
 └── README.md
 ```
