@@ -93,13 +93,20 @@ The celebration effect is triggered when progress reaches `100%`.
 ```ts
 import confetti from "canvas-confetti";
 
-const triggerCelebration = () => {
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.6 },
-  });
-};
+  if (!wasAchieved && isNowAchieved) {
+    setTimeout(() => {
+      if (confettiRef.current) {
+        const rect = confettiRef.current.getBoundingClientRect()
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: {
+            x: rect.left / window.innerWidth + rect.width / window.innerWidth / 2,
+            y: rect.top / window.innerHeight,
+          },
+        })
+      }
+    }, 100)
 ```
 
 Don’t forget to install its types for TypeScript support:
